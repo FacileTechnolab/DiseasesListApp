@@ -1,0 +1,65 @@
+<!--
+  Generated template for the Profile page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Profile</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-card *ngIf="errorMessage" class="errorCard">
+            <ion-card-content>
+                {{errorMessage}}
+            </ion-card-content>
+        </ion-card>
+
+        <form [formGroup]="profileForm" (ngSubmit)="editProfile()">
+            <ion-item>
+                <ion-label floating>First Name</ion-label>
+                <ion-input type="text" formControlName="firstName"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="profileForm.controls.firstName.touched" no-lines>
+                <p *ngIf="profileForm.controls['firstName'].hasError('required')">FirstName is required</p>
+                <p *ngIf="profileForm.controls['firstName'].hasError('maxlength')">FirstName is too long</p>
+                <p *ngIf="profileForm.controls['firstName'].hasError('pattern')">Please enter valid first name</p>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Last Name</ion-label>
+                <ion-input type="text" formControlName="lastName"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="profileForm.controls.lastName.touched" no-lines>
+                <p *ngIf="profileForm.controls['lastName'].hasError('required')">LastName is required</p>
+                <p *ngIf="profileForm.controls['lastName'].hasError('maxlength')">LastName is too long</p>
+                <p *ngIf="profileForm.controls['lastName'].hasError('pattern')">Please enter valid last name</p>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>User Name</ion-label>
+                <ion-input type="text" formControlName="userName"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="profileForm.controls.userName.touched" no-lines>
+                <p *ngIf="profileForm.controls['userName'].hasError('required')">UserName is required</p>
+                <p *ngIf="profileForm.controls['userName'].hasError('maxlength')">UserName is too long</p>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="profileForm.controls.email.touched" no-lines>
+                <p *ngIf="profileForm.controls['email'].hasError('required')">Email is required</p>
+                <p *ngIf="profileForm.controls['email'].hasError('pattern')">Please enter valid email</p>
+            </ion-item>
+            <button type="submit" ion-button full [disabled]="!profileForm.valid">Edit Profile</button>
+        </form>
+        <button type="button " ion-button color="secondary" round style="display: block; margin: 0 auto;" (click)="redirectToChangePasswordPage()">Change Password</button>
+</ion-list>
+
+</ion-content>

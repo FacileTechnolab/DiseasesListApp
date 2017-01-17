@@ -1,0 +1,37 @@
+<!--
+  Generated template for the DiseasesList page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Diseases List</ion-title>
+    </ion-navbar>
+    <ion-toolbar color="primary">
+        <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngIf="searchTerm && HealthTopics && HealthTopics.length==0&&isDataLoaded==true">
+        <ion-card-content>
+            No match found!
+        </ion-card-content>
+    </ion-card>
+    <div *ngIf="!searchTerm&&!HealthTopics||!searchTerm && HealthTopics&&HealthTopics.length==0">
+        <ion-card>
+            <ion-card-content>
+                Please type something
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <ion-list>
+        <button ion-item *ngFor="let item of HealthTopics" (click)="getHealthTopicDetail(item.id)">
+            {{item.title}}
+        </button>
+    </ion-list>
+</ion-content>
