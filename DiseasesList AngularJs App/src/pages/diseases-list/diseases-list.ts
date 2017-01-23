@@ -23,38 +23,44 @@ export class DiseasesListPage {
     searchTerm: string = '';
     errorMessage: string;
     HealthTopics: any;
-    searchControl = new FormControl();
+    searchControl: FormControl;
     isDataLoaded: boolean = false;
-    constructor(private nav: NavController, private diseaseService: DiseaseService, private authService: AuthService, private loaderService: LoaderService) { }
+    constructor(private nav: NavController, private diseaseService: DiseaseService, private authService: AuthService, private loaderService: LoaderService) {
+        this.searchControl = new FormControl();
+    }
 
     ionViewDidLoad() {
         this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
-            this.loaderService.showLoading();
-            if (this.searchTerm) {
-                this.diseaseService.getHealthTopics(this.searchTerm)
-                    .subscribe(
-                    (result: any) => {
-                        this.loaderService.hideLoading();
-                        this.isDataLoaded = true;
-                        this.HealthTopics = result;
-                    },
-                    error => {
-                        this.errorMessage = <any>error
-                        this.loaderService.hideLoading();
-                    });
-            }
-            else {
-                this.loaderService.hideLoading();
-                this.isDataLoaded = false;
-                this.HealthTopics = [];
-            }
+            this.getHealthTopics();
         });
     }
-   
+
+    getHealthTopics() {
+        this.loaderService.showLoading();
+        if (this.searchTerm) {
+            this.diseaseService.getHealthTopics(this.searchTerm)
+                .subscribe(
+                (result: any) => {
+                    this.loaderService.hideLoading();
+                    this.isDataLoaded = true;
+                    this.HealthTopics = result;
+                },
+                error => {
+                    this.errorMessage = <any>error
+                    this.loaderService.hideLoading();
+                });
+        }
+        else {
+            this.loaderService.hideLoading();
+            this.isDataLoaded = false;
+            this.HealthTopics = [];
+        }
+    }
+
     getHealthTopicDetail(id) {
         this.nav.push(DiseaseDetailPage, {
             id: id
         });
     }
-    
+
 }

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Headers } from '@angular/http';
+import { URLSearchParams, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { HealthTopic } from '../models/healthTopic';
 import { APIConfiguration } from '../constants/app.constants';
 import { AuthService } from './auth-service';
 import { StorageService } from './storage-service';
 import { HttpService } from './http-service';
+import { UserService } from './user-service';
+/* Components */
 import 'rxjs/add/operator/map';
 
 /*
@@ -20,7 +21,9 @@ export class DiseaseService {
     private apiUrl: string;
     private token: string;
 
-    constructor(private http: Http, private apiConfiguration: APIConfiguration, private authService: AuthService, private storageService: StorageService, private httpService: HttpService) {
+    constructor(private apiConfiguration: APIConfiguration, private authService: AuthService, private storageService: StorageService, private httpService: HttpService,
+        private userService: UserService
+    ) {
         this.apiUrl = apiConfiguration.ServerWithApiUrl;
     }
     getHealthTopics(search: string): Observable<any> {
@@ -46,9 +49,10 @@ export class DiseaseService {
                         //again call with new headers
                         var newheaders = new Headers();
                         newheaders.append('Authorization', 'Bearer' + ' ' + newToken.token);
-                        return this.http.request(`${this.apiUrl}HealthTopic/GetByTitle`, { headers: newheaders, search: params })
+                        return this.httpService.request(`${this.apiUrl}HealthTopic/GetByTitle`, { headers: newheaders, search: params })
                             .map(this.httpService.extractData)
                             .catch(this.httpService.handleError);
+
                     })
                 } else {
                     return Observable.throw(error);
@@ -56,10 +60,10 @@ export class DiseaseService {
             });
     }
 
-    getHealthTopicById(id:any) : Observable<any>{
+    getHealthTopicById(id: any): Observable<any> {
         let params: URLSearchParams = new URLSearchParams();
         var headers = new Headers();
-        params.set('id',id);
+        params.set('id', id);
         headers.append('Authorization', 'Bearer' + ' ' + this.token);
 
         return this.httpService.get(`${this.apiUrl}HealthTopic/GetById`, { headers: headers, search: params })
@@ -73,7 +77,7 @@ export class DiseaseService {
                         //again call with new headers
                         var newheaders = new Headers();
                         newheaders.append('Authorization', 'Bearer' + ' ' + newToken.token);
-                        return this.http.request(`${this.apiUrl}HealthTopic/GetById`, { headers: newheaders, search: params })
+                        return this.httpService.request(`${this.apiUrl}HealthTopic/GetById`, { headers: newheaders, search: params })
                             .map(this.httpService.extractData)
                             .catch(this.httpService.handleError);
                     })

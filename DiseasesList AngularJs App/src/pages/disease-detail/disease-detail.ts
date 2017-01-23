@@ -33,10 +33,7 @@ export class DiseaseDetailPage {
         this.loaderService.hideLoading();
       });
   }
-
 }
-  //ionViewDidLoad() {
-  //  console.log('ionViewDidLoad DiseaseDetailPage');
-  //}
+
 
 

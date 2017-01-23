@@ -6,6 +6,7 @@ import { DiseasesListPage } from '../pages/diseases-list/diseases-list';
 import { AboutPage } from '../pages/about/about';
 import { ProfilePage } from '../pages/profile/profile';
 import { UserService } from '../providers/user-service';
+import { LoaderService } from '../providers/loader-service';
 
 @Component({
     templateUrl: 'app.html'
@@ -14,10 +15,10 @@ import { UserService } from '../providers/user-service';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
     rootPage: any;
-    userName :string;
+    userName: string;
     pages: Array<{ title: string, component: any }>;
 
-    constructor(public platform: Platform, private userService: UserService) {
+    constructor(public platform: Platform, private userService: UserService, private loaderService: LoaderService) {
         this.initializeApp();
         // used for an example of ngFor and navigation
         this.pages = [
@@ -34,11 +35,13 @@ export class MyApp {
     }
 
     initializeApp() {
+        this.loaderService.showLoading();
         this.platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             StatusBar.styleDefault();
             Splashscreen.hide();
+            this.loaderService.hideLoading();
         });
     }
 

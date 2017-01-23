@@ -31,6 +31,7 @@ export class HttpService {
       return this.http.post(url, body, options)
     }
   }
+  
   put(url: string, body: string, options?: RequestOptionsArgs): Observable<any> {
     if (this.networkService.noConnection()) {
       this.networkService.showNetworkAlert();
@@ -38,11 +39,18 @@ export class HttpService {
     } else { return this.http.put(url, body, options) }
   }
 
+  request(url: string, options?: RequestOptionsArgs): Observable<any> {
+    if (this.networkService.noConnection()) {
+      this.networkService.showNetworkAlert();
+      return Observable.throw('');
+    } else { return this.http.request(url, options) }
+  }
+
   extractData(res: Response) {
     let body = res.json();
-    return body|| {};
+    return body || {};
   }
-  
+
   handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {
@@ -64,6 +72,4 @@ export class HttpService {
     }
     return Observable.throw(errMsg);
   }
-
-
 }

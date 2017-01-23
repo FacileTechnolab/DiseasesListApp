@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { URLSearchParams, QueryEncoder } from '@angular/http';
+import { QueryEncoder } from '@angular/http';
 /*
   Generated class for the DiseaseService provider.
 

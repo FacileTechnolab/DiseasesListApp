@@ -20,7 +20,7 @@ import { LoaderService } from '../../providers/loader-service';
 })
 
 export class LoginPage {
-    user: any = { username: 'admin@gmail.com', password: 'admin@123' };
+    user: any = { username: '', password: '' };
     errorMessage: string;
     constructor(private nav: NavController, private menu: MenuController, private authService: AuthService, private storageService: StorageService, private loaderService: LoaderService) {
         //disable swipe menu on login page
@@ -39,7 +39,6 @@ export class LoginPage {
             result => {
                 //store token locally
                 this.storageService.setCredentials(this.user.username, result.access_token, result.refresh_token);
-                console.log(this.storageService.getCredentials());
                 this.nav.setRoot(DiseasesListPage);
                 
             },

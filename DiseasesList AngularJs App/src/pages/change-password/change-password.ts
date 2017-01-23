@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { ProfilePage } from '../profile/profile';
 /*services*/
 import { AuthService } from '../../providers/auth-service';
 import { StorageService } from '../../providers/storage-service';

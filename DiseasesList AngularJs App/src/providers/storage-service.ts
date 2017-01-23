@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
@@ -12,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class StorageService {
 
-    constructor(public http: Http) {
+    constructor() {
     }
 
     setCredentials(username: string, token: string, refreshToken: string) {
@@ -28,7 +27,6 @@ export class StorageService {
     }
 
     updateTokenCredentials(token: string, refreshToken: string) {
-        console.log('update credentials');
         let user = this.getCredentials();
         let username = user && user.username;
         this.clearCredentials();
@@ -40,7 +38,6 @@ export class StorageService {
         let refreshToken = user && user.refreshToken;
         this.clearCredentials();
         this.setCredentials(email,token,refreshToken);
-        console.log(this.getCredentials());
     }
     
 }

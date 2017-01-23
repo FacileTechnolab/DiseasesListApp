@@ -3,7 +3,6 @@ import { Headers, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { APIConfiguration } from '../constants/app.constants';
 import { OAuthClient } from '../constants/app.constants';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { StorageService } from './storage-service';
 import { NetworkService } from './network-service';
 import { HttpService } from './http-service';
@@ -24,7 +23,6 @@ export class AuthService {
     private tokenUrl: string;
     private clientId: string;
     private clientSecret: string;
-    private jwtHelper: JwtHelper = new JwtHelper();
 
     constructor(private apiConfiguration: APIConfiguration, private oauthClient: OAuthClient, private storageService: StorageService, private networkService: NetworkService, private httpService: HttpService) {
         this.apiUrl = apiConfiguration.ServerWithApiUrl;
@@ -40,7 +38,6 @@ export class AuthService {
         return this.httpService.post(this.tokenUrl, data, { headers: headers })
             .map(this.httpService.extractData)
             .catch(this.httpService.handleError);
-
     }
 
     register(registerData: Object): Observable<any> {
@@ -50,14 +47,6 @@ export class AuthService {
         return this.httpService.post(`${this.apiUrl}account/register`, data, { headers: headers })
             .map(this.httpService.extractData)
             .catch(this.httpService.handleError);
-    }
-
-    isTokenExpired() {
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
-        console.log(this.jwtHelper.getTokenExpirationDate(this.token));
-        console.log(this.jwtHelper.isTokenExpired(this.token));
-        return this.jwtHelper.isTokenExpired(this.token);
     }
 
     //get new access token when token expired
@@ -126,10 +115,7 @@ export class AuthService {
         params.append('client_secret', this.clientSecret);
         let data = params.toString();
         return data;
-
     }
-
-
 }
 
 

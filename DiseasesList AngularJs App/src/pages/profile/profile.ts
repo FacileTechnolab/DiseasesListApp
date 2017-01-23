@@ -41,7 +41,6 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.loaderService.showLoading();
-    console.log(this.storageService.getCredentials());
     let currentUser = this.storageService.getCredentials();
     this.email = currentUser.username;
     this.getUserData(this.email);
@@ -50,10 +49,10 @@ export class ProfilePage implements OnInit {
   editProfile() {
     this.errorMessage = null;
     this.loaderService.showLoading();
-    console.log(this.profileForm.value);
     this.authService.editProfile(this.profileForm.value, this.email)
       .subscribe(
       result => {
+        this.storageService.updateCredentials(this.profileForm.value.email);
         this.toastService.displayToast("Your profile updated successfully!");
       },
       error => {
