@@ -23,8 +23,8 @@
                 <ion-input type="text" formControlName="firstName"></ion-input>
             </ion-item>
             <ion-item *ngIf="registerForm.controls.firstName.touched" no-lines>
-                <p *ngIf="registerForm.controls['firstName'].hasError('required')">FirstName is required</p>
-                <p *ngIf="registerForm.controls['firstName'].hasError('maxlength')">FirstName is too long</p>
+                <p *ngIf="registerForm.controls['firstName'].hasError('required')">First name is required</p>
+                <p *ngIf="registerForm.controls['firstName'].hasError('maxlength')">First name is too long</p>
                 <p *ngIf="registerForm.controls['firstName'].hasError('pattern')">Please enter valid first name</p>
             </ion-item>
 
@@ -33,8 +33,8 @@
                 <ion-input type="text" formControlName="lastName"></ion-input>
             </ion-item>
             <ion-item *ngIf="registerForm.controls.lastName.touched" no-lines>
-                <p *ngIf="registerForm.controls['lastName'].hasError('required')">LastName is required</p>
-                <p *ngIf="registerForm.controls['lastName'].hasError('maxlength')">LastName is too long</p>
+                <p *ngIf="registerForm.controls['lastName'].hasError('required')">Last name is required</p>
+                <p *ngIf="registerForm.controls['lastName'].hasError('maxlength')">Last name is too long</p>
                 <p *ngIf="registerForm.controls['lastName'].hasError('pattern')">Please enter valid last name</p>
             </ion-item>
 
@@ -43,8 +43,8 @@
                 <ion-input type="text" formControlName="userName"></ion-input>
             </ion-item>
             <ion-item *ngIf="registerForm.controls.userName.touched" no-lines>
-                <p *ngIf="registerForm.controls['userName'].hasError('required')">UserName is required</p>
-                <p *ngIf="registerForm.controls['userName'].hasError('maxlength')">UserName is too long</p>
+                <p *ngIf="registerForm.controls['userName'].hasError('required')">User name is required</p>
+                <p *ngIf="registerForm.controls['userName'].hasError('maxlength')">User name is too long</p>
             </ion-item>
 
 
